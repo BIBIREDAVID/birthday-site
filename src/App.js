@@ -1,25 +1,299 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { Heart, MessageCircle, Camera, Sparkles, Send, Star } from 'lucide-react';
 
-function App() {
+export default function BirthdayPartyCentral() {
+  const [timeLeft, setTimeLeft] = useState({});
+  const [activeTab, setActiveTab] = useState('countdown');
+  const [guestbookEntries, setGuestbookEntries] = useState([
+    { name: 'Sarah', message: 'Happy Birthday! Hope your day is as amazing as you are! 🎉', timestamp: new Date('2025-09-28') },
+    { name: 'Mike', message: 'Wishing you all the best on your special day!', timestamp: new Date('2025-09-29') }
+  ]);
+  const [newEntry, setNewEntry] = useState({ name: '', message: '' });
+  const [showWish, setShowWish] = useState(false);
+  const [confetti, setConfetti] = useState([]);
+  const [wishText, setWishText] = useState('');
+
+  // Birthday date - CUSTOMIZE THIS
+  const birthdayDate = React.useMemo(() => new Date('2025-10-10T00:00:00'), []);
+
+  // Sample photos - REPLACE WITH REAL PHOTOS
+  const photos = [
+    { id: 1, url: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400', caption: 'Beach day 2024' },
+    { id: 2, url: 'https://images.unsplash.com/photo-1464047736614-af63643285bf?w=400', caption: 'Hiking adventure' },
+    { id: 3, url: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400', caption: 'Concert night' },
+    { id: 4, url: 'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=400', caption: 'Birthday 2024' },
+    { id: 5, url: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=400', caption: 'Sunset vibes' },
+    { id: 6, url: 'https://images.unsplash.com/photo-1542627088-4f8e6d6a4f11?w=400', caption: 'Summer fun' }
+  ];
+
+  const predictions = [
+    { name: 'Alex', prediction: 'Will finally learn to cook something other than pasta!' },
+    { name: 'Jordan', prediction: 'Will travel to at least 3 new countries' },
+    { name: 'Taylor', prediction: 'Will adopt a cat (we all know it\'s happening)' },
+    { name: 'Casey', prediction: 'Will become a TikTok star' }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
+      const difference = birthdayDate - now;
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60)
+        });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleSubmitEntry = () => {
+    if (newEntry.name && newEntry.message) {
+      setGuestbookEntries([...guestbookEntries, { 
+        ...newEntry, 
+        timestamp: new Date() 
+      }]);
+      setNewEntry({ name: '', message: '' });
+      createConfetti();
+    }
+  };
+
+  const createConfetti = () => {
+    const newConfetti = Array.from({ length: 50 }, (_, i) => ({
+      id: Date.now() + i,
+      left: Math.random() * 100,
+      delay: Math.random() * 0.5,
+      duration: 2 + Math.random() * 2
+    }));
+    setConfetti(newConfetti);
+    setTimeout(() => setConfetti([]), 4000);
+  };
+
+  const handleMakeWish = () => {
+    if (wishText.trim()) {
+      setShowWish(true);
+      createConfetti();
+      setTimeout(() => {
+        setShowWish(false);
+        setWishText('');
+      }, 5000);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-yellow-300/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      </div>
+
+      {/* Confetti */}
+      {confetti.map(c => (
+        <div
+          key={c.id}
+          className="absolute w-3 h-3 bg-yellow-300 rounded-full animate-fall pointer-events-none"
+          style={{
+            left: `${c.left}%`,
+            top: '-20px',
+            animationDelay: `${c.delay}s`,
+            animationDuration: `${c.duration}s`
+          }}
+        />
+      ))}
+
+      <div className="relative z-10 container mx-auto px-4 py-8 max-w-6xl">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-6xl font-bold text-white mb-4 animate-bounce">
+            🎉 Leemah's Birthday Bash! 🎂
+          </h1>
+          <p className="text-2xl text-white/90 font-light">Turning 17 and feeling older!</p>
+        </div>
+
+        {/* Navigation Tabs */}
+        <div className="flex justify-center gap-4 mb-8 flex-wrap">
+          {[
+            { id: 'countdown', icon: Star, label: 'Countdown' },
+            { id: 'guestbook', icon: MessageCircle, label: 'Guestbook' },
+            { id: 'photos', icon: Camera, label: 'Memories' },
+            { id: 'wish', icon: Sparkles, label: 'Make a Wish' },
+            { id: 'predictions', icon: Heart, label: 'Predictions' }
+          ].map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all transform hover:scale-105 ${
+                activeTab === tab.id
+                  ? 'bg-white text-purple-600 shadow-lg'
+                  : 'bg-white/20 text-white hover:bg-white/30'
+              }`}
+            >
+              <tab.icon size={20} />
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Content Area */}
+        <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 min-h-[500px]">
+          {/* Countdown */}
+          {activeTab === 'countdown' && (
+            <div className="text-center">
+              <h2 className="text-4xl font-bold text-gray-800 mb-8">Time Until the Party!</h2>
+              <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto">
+                {Object.entries(timeLeft).map(([unit, value]) => (
+                  <div key={unit} className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl p-6 shadow-lg transform hover:scale-105 transition-transform">
+                    <div className="text-5xl font-bold text-white mb-2">{value || '0'}</div>
+                    <div className="text-white/90 uppercase text-sm font-semibold">{unit}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-12 text-gray-600">
+                <p className="text-xl mb-2">📅 October 10, 2025</p>
+                <p className="text-lg">🎊 Get ready for an unforgettable celebration!</p>
+              </div>
+            </div>
+          )}
+
+          {/* Guestbook */}
+          {activeTab === 'guestbook' && (
+            <div>
+              <h2 className="text-4xl font-bold text-gray-800 mb-6 text-center">Birthday Messages</h2>
+              
+              <div className="mb-8 bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-2xl">
+                <input
+                  type="text"
+                  placeholder="Your name"
+                  value={newEntry.name}
+                  onChange={(e) => setNewEntry({ ...newEntry, name: e.target.value })}
+                  className="w-full px-4 py-3 rounded-lg border-2 border-purple-200 mb-4 focus:border-purple-500 focus:outline-none"
+                />
+                <textarea
+                  placeholder="Write your birthday message..."
+                  value={newEntry.message}
+                  onChange={(e) => setNewEntry({ ...newEntry, message: e.target.value })}
+                  className="w-full px-4 py-3 rounded-lg border-2 border-purple-200 mb-4 h-24 focus:border-purple-500 focus:outline-none resize-none"
+                />
+                <button
+                  onClick={handleSubmitEntry}
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all flex items-center justify-center gap-2"
+                >
+                  <Send size={20} />
+                  Send Birthday Wishes
+                </button>
+              </div>
+
+              <div className="space-y-4 max-h-96 overflow-y-auto">
+                {guestbookEntries.map((entry, idx) => (
+                  <div key={idx} className="bg-gradient-to-r from-yellow-50 to-orange-50 p-5 rounded-xl shadow-md border-l-4 border-orange-400">
+                    <div className="flex justify-between items-start mb-2">
+                      <span className="font-bold text-gray-800">{entry.name}</span>
+                      <span className="text-sm text-gray-500">{entry.timestamp.toLocaleDateString()}</span>
+                    </div>
+                    <p className="text-gray-700">{entry.message}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Photos */}
+          {activeTab === 'photos' && (
+            <div>
+              <h2 className="text-4xl font-bold text-gray-800 mb-6 text-center">Memory Lane 📸</h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {photos.map(photo => (
+                  <div key={photo.id} className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105">
+                    <img src={photo.url} alt={photo.caption} className="w-full h-64 object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                      <p className="text-white font-semibold">{photo.caption}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Make a Wish */}
+          {activeTab === 'wish' && (
+            <div className="text-center max-w-2xl mx-auto">
+              <h2 className="text-4xl font-bold text-gray-800 mb-6">Make a Birthday Wish ✨</h2>
+              <div className="mb-8">
+                <div className="text-8xl mb-4 animate-pulse">🎂</div>
+                <p className="text-gray-600 mb-6">Close your eyes, make a wish, and blow out the candles!</p>
+              </div>
+              
+              {!showWish ? (
+                <div>
+                  <textarea
+                    placeholder="Type your wish here (it's a secret! 🤫)"
+                    value={wishText}
+                    onChange={(e) => setWishText(e.target.value)}
+                    className="w-full px-4 py-3 rounded-lg border-2 border-purple-200 mb-4 h-32 focus:border-purple-500 focus:outline-none resize-none"
+                  />
+                  <button
+                    onClick={handleMakeWish}
+                    className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg"
+                  >
+                    🎈 Blow Out the Candles! 🎈
+                  </button>
+                </div>
+              ) : (
+                <div className="bg-gradient-to-r from-yellow-100 to-orange-100 p-8 rounded-2xl">
+                  <div className="text-6xl mb-4">🌟 ✨ 💫</div>
+                  <h3 className="text-3xl font-bold text-gray-800 mb-4">Your Wish Has Been Made!</h3>
+                  <p className="text-xl text-gray-700">May all your dreams come true this year! 🎉</p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Predictions */}
+          {activeTab === 'predictions' && (
+            <div>
+              <h2 className="text-4xl font-bold text-gray-800 mb-6 text-center">Birthday Predictions 🔮</h2>
+              <p className="text-center text-gray-600 mb-8">What do your friends think you'll do this year?</p>
+              <div className="grid md:grid-cols-2 gap-6">
+                {predictions.map((pred, idx) => (
+                  <div key={idx} className="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-2xl shadow-lg border-2 border-purple-200 hover:border-purple-400 transition-all transform hover:scale-105">
+                    <div className="flex items-start gap-4">
+                      <div className="text-4xl">🔮</div>
+                      <div>
+                        <p className="font-bold text-gray-800 mb-2">{pred.name} predicts:</p>
+                        <p className="text-gray-700 italic">"{pred.prediction}"</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="text-center mt-8 text-white">
+          <p className="text-lg font-light">Made with ❤️ for an amazing friend</p>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes fall {
+          to {
+            transform: translateY(100vh) rotate(360deg);
+            opacity: 0;
+          }
+        }
+        .animate-fall {
+          animation: fall linear forwards;
+        }
+      `}</style>
     </div>
   );
 }
-
-export default App;
