@@ -5,8 +5,8 @@ export default function BirthdayPartyCentral() {
   const [timeLeft, setTimeLeft] = useState({});
   const [activeTab, setActiveTab] = useState('countdown');
   const [guestbookEntries, setGuestbookEntries] = useState([
-    { name: 'Sarah', message: 'Happy Birthday! Hope your day is as amazing as you are! 🎉', timestamp: new Date('2025-09-28') },
-    { name: 'Mike', message: 'Wishing you all the best on your special day!', timestamp: new Date('2025-09-29') }
+    { name: 'David', message: 'Happy Birthday! Hope your day is as amazing as you are! 🎉', timestamp: new Date('2025-10-05') },
+    { name: 'Idris', message: 'Happy Birthday! I hope today brings you everything you wish for and more!', timestamp: new Date('2025-10-05') }
   ]);
   const [newEntry, setNewEntry] = useState({ name: '', message: '' });
   const [showWish, setShowWish] = useState(false);
@@ -14,20 +14,20 @@ export default function BirthdayPartyCentral() {
   const [wishText, setWishText] = useState('');
 
   // Birthday date - CUSTOMIZE THIS
-  const birthdayDate = React.useMemo(() => new Date('2025-10-10T00:00:00'), []);
+  const birthdayDate = React.useMemo(() => new Date('2025-10-09T00:00:00'), []);
 
-  // Sample photos - REPLACE WITH REAL PHOTOS
+  // Sample photos - Add your own photos to src/images folder
   const photos = [
-    { id: 1, url: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400', caption: 'Beach day 2024' },
-    { id: 2, url: 'https://images.unsplash.com/photo-1464047736614-af63643285bf?w=400', caption: 'Hiking adventure' },
-    { id: 3, url: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400', caption: 'Concert night' },
-    { id: 4, url: 'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=400', caption: 'Birthday 2024' },
-    { id: 5, url: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=400', caption: 'Sunset vibes' },
-    { id: 6, url: 'https://images.unsplash.com/photo-1542627088-4f8e6d6a4f11?w=400', caption: 'Summer fun' }
+    { id: 1, url: require('./images/leemah1.jpg'), caption: 'School Vibes' },
+    { id: 2, url: require('./images/leemah2.jpg'), caption: '' },
+    { id: 3, url: require('./images/leemah3.jpg'), caption: 'Best friends forever 💜' },
+    { id: 4, url: require('./images/leemah4.jpg'), caption: 'Bright smiles ☀️' },
+    { id: 5, url: require('./images/leemah5.jpg'), caption: 'Bright smiles ☀️' },
+    { id: 6, url: require('./images/leemah6.jpg'), caption: 'Bright smiles ☀️' },
   ];
 
   const predictions = [
-    { name: 'Alex', prediction: 'Will finally learn to cook something other than pasta!' },
+    { name: 'David', prediction: 'Will finally land a good paying job in GRC!' },
     { name: 'Jordan', prediction: 'Will travel to at least 3 new countries' },
     { name: 'Taylor', prediction: 'Will adopt a cat (we all know it\'s happening)' },
     { name: 'Casey', prediction: 'Will become a TikTok star' }
@@ -51,7 +51,7 @@ export default function BirthdayPartyCentral() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [birthdayDate]);
 
   const handleSubmitEntry = () => {
     if (newEntry.name && newEntry.message) {
@@ -156,41 +156,19 @@ export default function BirthdayPartyCentral() {
                 ))}
               </div>
               <div className="mt-12 text-gray-600">
-                <p className="text-xl mb-2">📅 October 10, 2025</p>
+                <p className="text-xl mb-2">📅 October 09, 2025</p>
                 <p className="text-lg">🎊 Get ready for an unforgettable celebration!</p>
               </div>
             </div>
           )}
 
           {/* Guestbook */}
-          {activeTab === 'guestbook' && (
-            <div>
-              <h2 className="text-4xl font-bold text-gray-800 mb-6 text-center">Birthday Messages</h2>
-              
-              <div className="mb-8 bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-2xl">
-                <input
-                  type="text"
-                  placeholder="Your name"
-                  value={newEntry.name}
-                  onChange={(e) => setNewEntry({ ...newEntry, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border-2 border-purple-200 mb-4 focus:border-purple-500 focus:outline-none"
-                />
-                <textarea
-                  placeholder="Write your birthday message..."
-                  value={newEntry.message}
-                  onChange={(e) => setNewEntry({ ...newEntry, message: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border-2 border-purple-200 mb-4 h-24 focus:border-purple-500 focus:outline-none resize-none"
-                />
-                <button
-                  onClick={handleSubmitEntry}
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all flex items-center justify-center gap-2"
-                >
-                  <Send size={20} />
-                  Send Birthday Wishes
-                </button>
-              </div>
-
-              <div className="space-y-4 max-h-96 overflow-y-auto">
+          {/* Guestbook */}
+{activeTab === 'guestbook' && (
+  <div>
+    <h2 className="text-4xl font-bold text-gray-800 mb-6 text-center">Birthday Messages</h2>
+    
+    <div className="space-y-4 max-h-96 overflow-y-auto">
                 {guestbookEntries.map((entry, idx) => (
                   <div key={idx} className="bg-gradient-to-r from-yellow-50 to-orange-50 p-5 rounded-xl shadow-md border-l-4 border-orange-400">
                     <div className="flex justify-between items-start mb-2">
