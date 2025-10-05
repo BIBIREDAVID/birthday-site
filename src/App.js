@@ -118,14 +118,14 @@ export default function BirthdayPartyCentral() {
       <div className="relative z-10 container mx-auto px-4 py-8 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-6xl font-bold text-white mb-4 animate-bounce">
-            🎉 Leemah's Birthday Bash! 🎂
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 animate-bounce">
+            🎉 Leemzy's Birthday Bash! 🎂
           </h1>
-          <p className="text-2xl text-white/90 font-light">Turning 17 and feeling older!</p>
+          <p className="text-lg sm:text-xl md:text-2xl text-white/90 font-light">Turning 17 and feeling older!</p>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex justify-center gap-4 mb-8 flex-wrap">
+        <div className="flex justify-center gap-2 sm:gap-4 mb-8 flex-wrap px-2">
           {[
             { id: 'countdown', icon: Star, label: 'Countdown' },
             { id: 'guestbook', icon: MessageCircle, label: 'Guestbook' },
@@ -137,7 +137,7 @@ export default function BirthdayPartyCentral() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               disabled={tab.id !== 'countdown' && !isBirthdayReached()}
-              className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all transform hover:scale-105 ${
+              className={`flex items-center gap-1 sm:gap-2 px-3 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base font-semibold transition-all transform hover:scale-105 ${
                 activeTab === tab.id
                   ? 'bg-white text-purple-600 shadow-lg'
                   : (tab.id !== 'countdown' && !isBirthdayReached())
@@ -145,30 +145,30 @@ export default function BirthdayPartyCentral() {
                   : 'bg-white/20 text-white hover:bg-white/30'
               }`}
             >
-              <tab.icon size={20} />
-              {tab.label}
+              <tab.icon size={16} className="sm:w-5 sm:h-5" />
+              <span className="hidden xs:inline">{tab.label}</span>
               {tab.id !== 'countdown' && !isBirthdayReached() && ' 🔒'}
             </button>
           ))}
         </div>
 
         {/* Content Area */}
-        <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 min-h-[500px]">
+        <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 min-h-[500px]">
           {/* Countdown */}
           {activeTab === 'countdown' && (
             <div className="text-center">
-              <h2 className="text-4xl font-bold text-gray-800 mb-8">Time Until the Party!</h2>
-              <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-6 sm:mb-8">Time Until the Party!</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-2xl mx-auto">
                 {Object.entries(timeLeft).map(([unit, value]) => (
-                  <div key={unit} className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl p-6 shadow-lg transform hover:scale-105 transition-transform">
-                    <div className="text-5xl font-bold text-white mb-2">{value || '0'}</div>
-                    <div className="text-white/90 uppercase text-sm font-semibold">{unit}</div>
+                  <div key={unit} className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl p-4 sm:p-6 shadow-lg transform hover:scale-105 transition-transform">
+                    <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-1 sm:mb-2">{value || '0'}</div>
+                    <div className="text-white/90 uppercase text-xs sm:text-sm font-semibold">{unit}</div>
                   </div>
                 ))}
               </div>
-              <div className="mt-12 text-gray-600">
-                <p className="text-xl mb-2">📅 October 09, 2025</p>
-                <p className="text-lg">🎊 Get ready for an unforgettable celebration!</p>
+              <div className="mt-8 sm:mt-12 text-gray-600">
+                <p className="text-lg sm:text-xl mb-2">📅 October 09, 2025</p>
+                <p className="text-base sm:text-lg">🎊 Get ready for an unforgettable celebration!</p>
               </div>
             </div>
           )}
@@ -177,7 +177,7 @@ export default function BirthdayPartyCentral() {
           {activeTab === 'guestbook' && (
             isBirthdayReached() ? (
               <div>
-                <h2 className="text-4xl font-bold text-gray-800 mb-6 text-center">Birthday Messages</h2>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-6 text-center">Birthday Messages</h2>
                 
                 <div className="space-y-4 max-h-96 overflow-y-auto">
                   {guestbookEntries.map((entry, idx) => (
@@ -204,8 +204,8 @@ export default function BirthdayPartyCentral() {
           {activeTab === 'photos' && (
             isBirthdayReached() ? (
               <div>
-                <h2 className="text-4xl font-bold text-gray-800 mb-6 text-center">Memory Lane 📸</h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-6 text-center">Memory Lane 📸</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                   {photos.map(photo => (
                     <div key={photo.id} className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:scale-105">
                       <img src={photo.url} alt={photo.caption} className="w-full h-64 object-cover" />
@@ -229,9 +229,9 @@ export default function BirthdayPartyCentral() {
           {activeTab === 'wish' && (
             isBirthdayReached() ? (
               <div className="text-center max-w-2xl mx-auto">
-                <h2 className="text-4xl font-bold text-gray-800 mb-6">Make a Birthday Wish ✨</h2>
-                <div className="mb-8">
-                  <div className="text-8xl mb-4 animate-pulse">🎂</div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-6">Make a Birthday Wish ✨</h2>
+                <div className="mb-6 sm:mb-8">
+                  <div className="text-6xl sm:text-7xl md:text-8xl mb-4 animate-pulse">🎂</div>
                   <p className="text-gray-600 mb-6">Close your eyes, make a wish, and blow out the candles!</p>
                 </div>
                 
@@ -271,8 +271,8 @@ export default function BirthdayPartyCentral() {
           {activeTab === 'predictions' && (
             isBirthdayReached() ? (
               <div>
-                <h2 className="text-4xl font-bold text-gray-800 mb-6 text-center">Birthday Predictions 🔮</h2>
-                <p className="text-center text-gray-600 mb-8">What do your friends think you'll do this year?</p>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-6 text-center">Birthday Predictions 🔮</h2>
+                <p className="text-center text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">What do your friends think you'll do this year?</p>
                 <div className="grid md:grid-cols-2 gap-6">
                   {predictions.map((pred, idx) => (
                     <div key={idx} className="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-2xl shadow-lg border-2 border-purple-200 hover:border-purple-400 transition-all transform hover:scale-105">
