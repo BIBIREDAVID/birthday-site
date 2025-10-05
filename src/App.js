@@ -119,7 +119,7 @@ export default function BirthdayPartyCentral() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 animate-bounce">
-            🎉 Leemzy's Birthday Bash! 🎂
+            🎉 Halimat's Birthday Bash! 🎂
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-white/90 font-light">Turning 17 and feeling older!</p>
         </div>
