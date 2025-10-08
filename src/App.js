@@ -28,7 +28,15 @@ export default function BirthdayPartyCentral() {
     { id: 5, url: require('./images/leemah5.jpg'), caption: 'Bright smiles ☀️' },
     { id: 6, url: require('./images/leemah6.jpg'), caption: 'Bright smiles ☀️' },
     { id: 7, url: require('./images/leemah7.jpg'), caption: 'Bright smiles ☀️' },
-    
+    { id: 9, url: require('./images/leemah9.jpg'), caption: 'Bright smiles ☀️' },
+    { id: 10, url: require('./images/leemah10.jpg'), caption: 'Bright smiles ☀️' },
+    { id: 11, url: require('./images/leemah11.jpg'), caption: 'Bright smiles ☀️' },
+    { id: 12, url: require('./images/leemah12.jpg'), caption: 'Bright smiles ☀️' },
+    { id: 13, url: require('./images/leemah13.jpg'), caption: 'Bright smiles ☀️' },
+    { id: 14, url: require('./images/leemah14.jpg'), caption: 'Bright smiles ☀️' },
+    { id: 15, url: require('./images/leemah15.jpg'), caption: 'Bright smiles ☀️' },
+    { id: 16, url: require('./images/leemah16.jpg'), caption: 'Bright smiles ☀️' },
+    { id: 17, url: require('./images/leemah17.jpg'), caption: 'Bright smiles ☀️' },
   ];
 
   const predictions = [
