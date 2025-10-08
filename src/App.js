@@ -5,7 +5,7 @@ export default function BirthdayPartyCentral() {
   const [timeLeft, setTimeLeft] = useState({});
   const [activeTab, setActiveTab] = useState('countdown');
   const [guestbookEntries, setGuestbookEntries] = useState([
-    { name: 'David', message: 'Happy Birthday! Hope your day is as amazing as you are! 🎉', timestamp: new Date('2025-10-05') },
+    { name: 'David', message: 'Happy Birthday! You are an amazing friend and a wonderful person to be with.The addition of Halimat has been nothing short of good things. Hope your day is as amazing as you are! 🎉', timestamp: new Date('2025-10-05') },
     { name: 'Damithehybrid', message: 'Happy birthday Halimah ❤️. I pray every good thing life has to offer finds you. I hope all your dreams come true. You’re a beautiful person and you deserve beautiful things. Have a good one 💐😙', timestamp: new Date('2025-10-08') },
     { name: 'Idris', message: 'Happy Birthday! I hope today brings you everything you wish for and more!', timestamp: new Date('2025-10-05') },
     { name: 'Demilade', message: 'Happy Birthday to the first friend LASU gave me 🥰I wish you long life and prosperity in good health. I wish you the best in all your endeavors and I can\'t wait to see you at the TOP. Have a wonderful day my love ❤️', timestamp: new Date('2025-10-05') },
