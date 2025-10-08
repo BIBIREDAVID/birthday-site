@@ -38,6 +38,7 @@ export default function BirthdayPartyCentral() {
     { id: 15, url: require('./images/leemah15.jpg'), caption: 'Bright smiles ☀️' },
     { id: 16, url: require('./images/leemah16.jpg'), caption: 'Bright smiles ☀️' },
     { id: 17, url: require('./images/leemah17.jpg'), caption: 'Bright smiles ☀️' },
+    { id: 18, url: require('./images/leemah18.jpg'), caption: 'Bright smiles ☀️' },
   ];
 
   const predictions = [
