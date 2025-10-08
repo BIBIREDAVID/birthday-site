@@ -6,15 +6,16 @@ export default function BirthdayPartyCentral() {
   const [activeTab, setActiveTab] = useState('countdown');
   const [guestbookEntries, setGuestbookEntries] = useState([
     { name: 'David', message: 'Happy Birthday! Hope your day is as amazing as you are! 🎉', timestamp: new Date('2025-10-05') },
+    { name: 'Damithehybrid', message: 'Happy birthday Halimah ❤️. I pray every good thing life has to offer finds you. I hope all your dreams come true. You’re a beautiful person and you deserve beautiful things. Have a good one 💐😙', timestamp: new Date('2025-10-08') },
     { name: 'Idris', message: 'Happy Birthday! I hope today brings you everything you wish for and more!', timestamp: new Date('2025-10-05') },
     { name: 'Demilade', message: 'Happy Birthday to the first friend LASU gave me 🥰I wish you long life and prosperity in good health. I wish you the best in all your endeavors and I can\'t wait to see you at the TOP. Have a wonderful day my love ❤️', timestamp: new Date('2025-10-05') },
     { name: 'Ope', message: 'Happy Birthday to an Incredible Halimomo😂❤️Beyond just being an amazing coursemate, you are a wonderful friend. Your generosity with your time and resources has truly helped so many of us through tough semesters and navigate the cyber world. 💻It is a genuine privilege to celebrate you today. Your consistent support and unwavering kindness have made our shared academic journey smoother for everyone. What truly sets you apart is your remarkable resourcefulness, you never just care, you actively seek out the information and solutions necessary to help others thrive. I hope your birthday 🎂 gives back to you even a fraction of the joy and kindness you put out into the world. 🎉May the year ahead be your most successful yet! 🎊🥳 Warmly,', timestamp: new Date('2025-10-05') },
-    { name: 'Damithehybrid', message: 'Happy birthday Halimah ❤️. I pray every good thing life has to offer finds you. I hope all your dreams come true. You’re a beautiful person and you deserve beautiful things. Have a good one 💐😙', timestamp: new Date('2025-10-08') },
   ]);
   const [newEntry, setNewEntry] = useState({ name: '', message: '' });
   const [showWish, setShowWish] = useState(false);
   const [confetti, setConfetti] = useState([]);
   const [wishText, setWishText] = useState('');
+  const [showWelcomeDialog, setShowWelcomeDialog] = useState(true);
 
   // Birthday date - CUSTOMIZE THIS
   const birthdayDate = React.useMemo(() => new Date('2025-10-09T00:00:00'), []);
@@ -40,10 +41,10 @@ export default function BirthdayPartyCentral() {
   ];
 
   const predictions = [
-    { name: 'David', prediction: 'Will finally land a good paying job in GRC!' },
-    { name: 'Jordan', prediction: 'Will travel to at least 3 new countries' },
-    { name: 'Taylor', prediction: 'Will adopt a cat (we all know it\'s happening)' },
-    { name: 'Casey', prediction: 'Will become a TikTok star' }
+    { prediction: 'Will finally land a good paying job in GRC!' },
+    { prediction: 'Will travel to at least 3 new countries' },
+    { prediction: 'Will adopt a cat (we all know it\'s happening)' },
+    { prediction: 'Will become a TikTok star' }
   ];
 
   useEffect(() => {
@@ -65,6 +66,11 @@ export default function BirthdayPartyCentral() {
 
     return () => clearInterval(timer);
   }, [birthdayDate]);
+
+  // Trigger confetti on page load
+  useEffect(() => {
+    createConfetti();
+  }, []);
 
   const handleSubmitEntry = () => {
     if (newEntry.name && newEntry.message) {
@@ -101,6 +107,24 @@ export default function BirthdayPartyCentral() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 relative overflow-hidden">
+      {/* Welcome Dialog */}
+      {showWelcomeDialog && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center transform animate-bounce">
+            <div className="text-7xl mb-4">🎉</div>
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">Happy Birthday!</h2>
+            <p className="text-2xl text-purple-600 font-semibold mb-6">From Little Gbenga</p>
+            <p className="text-gray-600 mb-6">Wishing you an amazing day filled with joy and laughter! 🎂✨</p>
+            <button
+              onClick={() => setShowWelcomeDialog(false)}
+              className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-3 rounded-full font-bold text-lg hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg"
+            >
+              Let's Celebrate! 🎈
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
@@ -256,7 +280,6 @@ export default function BirthdayPartyCentral() {
                     <div className="flex items-start gap-4">
                       <div className="text-4xl">🔮</div>
                       <div>
-                        <p className="font-bold text-gray-800 mb-2">{pred.name} predicts:</p>
                         <p className="text-gray-700 italic">"{pred.prediction}"</p>
                       </div>
                     </div>
